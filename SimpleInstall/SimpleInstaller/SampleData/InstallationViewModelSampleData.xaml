@@ -1,0 +1,14 @@
+﻿<ViewModels:InstallationViewModel xmlns:ViewModels="clr-namespace:SimpleInstaller.ViewModels" Name="Arcu praesent">
+	<ViewModels:InstallationViewModel.Elements>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Cras curabitur aenean vestibulum"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Maecenas nam aliquam"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Class integer phasellus consequat"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Duis quisque sed mauris"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Convallis dis adipiscing"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Vivamus aliquam"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Est nunc"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Dignissim amet aliquet hac nullam"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Curae parturient blandit"/>
+		<ViewModels:InstallationElementWrapper Completed="False" InProgress="True" Name="Ante leo mus"/>
+	</ViewModels:InstallationViewModel.Elements>
+</ViewModels:InstallationViewModel>
