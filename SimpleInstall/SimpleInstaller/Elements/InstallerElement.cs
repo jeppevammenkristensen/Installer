@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -8,7 +6,7 @@ namespace SimpleInstaller.Elements
 {
     public abstract class InstallerElement
     {
-        public string Name { get; set; }
+        public abstract string Name { get; protected set; }
 
         public Action<string> Logger = delegate { };
 
@@ -17,10 +15,16 @@ namespace SimpleInstaller.Elements
 
     public class FolderInstallerElement : InstallerElement
     {
+        public FolderInstallerElement(string name)
+        {
+            Name = name;
+        }
+
         public string SourceFolder { get; set; }
         public string DestinationFolder { get; set; }
 
-       
+
+        public override string Name { get; protected set; }
 
         public override async Task InstallAsync()
         {
