@@ -19,7 +19,7 @@
 				</Grid.ColumnDefinitions>
 				<TextBlock TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Stretch"/>
 				<ProgressBar Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Margin="0" VerticalAlignment="Stretch" Width="Auto" IsIndeterminate="{Binding InProgress}" Maximum="1" Value="{Binding Progress}"/>
-				<CheckBox Content="" Grid.Column="2" HorizontalAlignment="Left" Height="14.46" Margin="4.5,1.5,0,0" VerticalAlignment="Top" Width="24.5" IsChecked="{Binding Completed}"/>
+				<CheckBox Content="" Grid.Column="2" HorizontalAlignment="Left" Height="14.46" Margin="4.5,1.5,0,0" VerticalAlignment="Top" Width="24.5" IsChecked="{Binding Completed}" BorderBrush="{Binding SuccessColour}"/>
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="StringTemplate1">

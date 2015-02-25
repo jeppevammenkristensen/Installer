@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 using SimpleInstaller.Annotations;
 using SimpleInstaller.Elements;
 
@@ -45,6 +47,20 @@ namespace SimpleInstaller.ViewModels
                 if (value.Equals(_completed)) return;
                 _completed = value;
                 OnPropertyChanged();
+                OnPropertyChanged("SuccessColour");
+            }
+        }
+
+        public string SuccessColour
+        {
+            get
+            {
+                if (Completed)
+                    return "#FF8F3333";
+                else
+                {
+                    return "#FFFFFFFF";
+                }
             }
         }
 
@@ -94,7 +110,7 @@ namespace SimpleInstaller.ViewModels
 
             foreach (var element in installation.Elements)
             {
-                element.Logger = s => Logs.Add(s);
+                element.Logger = s =>  Application.Current.Dispatcher.Invoke(() => Logs.Add(s));
             }
 
             Elements = new ObservableCollection<InstallationElementWrapper>(installation.Elements.Select(x => new InstallationElementWrapper(x)));
