@@ -32,6 +32,7 @@ namespace SimpleInstaller
             installation.Elements.Add(new RegistryInstallerElement("Installer \\directory\\shell\\Custom installation",() => Registry.ClassesRoot, new []{"Directory","shell","Custom installation"}, "Custom oprettet"));
             installation.Elements.Add(new RegistryInstallerElement("Installer \\directory\\shell\\Custom installation\\command",() => Registry.ClassesRoot, new []{"Directory","shell","Custom installation","command"}, Path.Combine(installation.Path,"SimpleInstaller.exe") + " \"%L%\""));
             installation.Elements.Add(new CreateShortcutElement(Path.Combine(installation.Path, "SimpleInstaller.exe"), Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "SimpleInstaller"));
+            //installation.Elements.Add(new CreateIIsWebsite("supertest",installation.Path,"supertest.localtest.me"));
 
 
             Scope = new InstallationViewModel();
