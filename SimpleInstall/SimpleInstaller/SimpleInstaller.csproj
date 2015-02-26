@@ -39,12 +39,38 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="ConfigR">
+      <HintPath>..\packages\ConfigR.0.12.0\lib\net45\ConfigR.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers">
+      <HintPath>..\packages\Roslyn.Compilers.Common.1.2.20906.2\lib\net45\Roslyn.Compilers.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.CSharp">
+      <HintPath>..\packages\Roslyn.Compilers.CSharp.1.2.20906.2\lib\net45\Roslyn.Compilers.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Contracts">
+      <HintPath>..\packages\ScriptCs.Contracts.0.12.0\lib\net45\ScriptCs.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Core">
+      <HintPath>..\packages\ScriptCs.Core.0.12.0\lib\net45\ScriptCs.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Engine.Roslyn">
+      <HintPath>..\packages\ScriptCs.Engine.Roslyn.0.12.0\lib\net45\ScriptCs.Engine.Roslyn.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,6 +94,11 @@
     <Compile Include="Elements\CreateIIsWebsite.cs" />
     <Compile Include="Elements\CreateShortcutElement.cs" />
     <Compile Include="Elements\Installation.cs" />
+    <Compile Include="Elements\InstallationArguments.cs" />
+    <Compile Include="Infrastructure\Chain.cs" />
+    <Compile Include="Infrastructure\ChainOfResponsibility.cs" />
+    <Compile Include="Elements\Loaders\ConfigRTester.cs" />
+    <Compile Include="Elements\Loaders\InstallationResolver.cs" />
     <Compile Include="Elements\RegistryInstallerElement.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\InstallationsViewModel.cs" />
@@ -104,6 +135,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="InstallationConfig.csx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -130,7 +164,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)Tools\LibZ\libz.exe" inject-dll -a "$(TargetPath)" -i *.dll --move</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

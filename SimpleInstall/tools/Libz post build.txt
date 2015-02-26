@@ -1,0 +1,3 @@
+Add this to the postbuild to merge the files. 
+
+"$(SolutionDir)Tools\LibZ\libz.exe" inject-dll -a "$(TargetPath)" -i *.dll --move
