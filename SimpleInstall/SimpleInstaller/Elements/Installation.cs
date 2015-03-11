@@ -13,5 +13,13 @@ namespace SimpleInstaller.Elements
         public string Path { get; set; }
 
         public List<InstallerElement> Elements { get; set; }
+
+        /// <summary>
+        /// Call this method when all methods has been added
+        /// </summary>
+        public void FinishedAddingElements()
+        {
+            
+        }
     }
 }

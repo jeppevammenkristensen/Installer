@@ -2,28 +2,46 @@
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using SimpleInstaller.Annotations;
+using SimpleInstaller.Utilities;
 
 namespace SimpleInstaller.Elements
 {
+    public enum RegistryRoot
+    {
+        HKEY_Classes_Root,
+        HKEY_Current_User,
+        HKEY_Local_Machine,
+        HKEY_Users,
+        HKEY_Current_Config,
+    }
+
+    public class RegistryValue
+    {
+        public RegistryValue(string name, string value)
+        {
+            Name = name;
+            Value = value;
+        }
+
+        public string Name { get; set; }
+        public string Value { get; set; }
+    }
+
     public class RegistryInstallerElement : InstallerElement
     {
-        public Func<RegistryKey> _rootRetriever { get; set; }
-        public string[] Paths { get; set; }
-        public string Value { get; set; }
-        public string Type { get; set; }
+        public RegistryRoot _root { get; set; }
+        public string Path { get; set; }
+        public RegistryValue[] Value { get; set; }
 
-        public RegistryInstallerElement([NotNull] string name, [NotNull] Func<RegistryKey> rootRetriever, [NotNull] string[] paths,
-            [NotNull] string value, string type = null)
+        public RegistryInstallerElement([NotNull] string name, RegistryRoot root, [NotNull] string path,
+            params RegistryValue[] value)
         {
             if (name == null) throw new ArgumentNullException("name");
-            if (rootRetriever == null) throw new ArgumentNullException("rootRetriever");
-            if (paths == null) throw new ArgumentNullException("paths");
-            if (value == null) throw new ArgumentNullException("value");
+            if (path == null) throw new ArgumentNullException("path");
 
-            _rootRetriever = rootRetriever;
-            Paths = paths;
+            _root = root;
+            Path = path;
             Value = value;
-            Type = type;
             Name = name;
         }
 
@@ -36,26 +54,16 @@ namespace SimpleInstaller.Elements
         {
             await Task.Run(() =>
             {
-                var currentKey = _rootRetriever();
-                RegistryKey currentCandidate;
-                if (currentKey == null)
-                    throw new InvalidOperationException("Failed to retrieve root key");
+                
+                Logger("Beginning registry creation");
 
-                foreach (var path in Paths)
+                var path = RegistryHelper.WriteRegistryPath(_root, Path);
+                Logger(string.Format("Wrote path {0}", Path));
+
+                foreach (var registryValue in Value)
                 {
-                    currentCandidate = currentKey.OpenSubKey(path, true);
-                    if (currentCandidate == null)
-                    {
-                        currentCandidate = currentKey.CreateSubKey(path);
-                        Logger(string.Format("Created subkey {0} for {1}", path, currentKey.ToString()));
-                    }
-
-                    currentKey = currentCandidate;
+                    path.WriteRegistryValue(registryValue);
                 }
-
-                if (currentKey != null)
-                    currentKey.SetValue("", Value);
-
                 Logger("Ended registrycreation");
             });
         }
