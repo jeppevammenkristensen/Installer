@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Web.Administration;
 
 namespace SimpleInstaller.Elements
@@ -9,7 +8,7 @@ namespace SimpleInstaller.Elements
         public override string Name
         {
             get { return string.Format("Install website {0}", SiteName); }
-            protected set {  }
+            set {  }
         }
 
         public CreateIIsWebsite(string siteName, string sitePath, string hostName, int port = 8080)

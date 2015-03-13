@@ -10,16 +10,15 @@ namespace SimpleInstaller.Elements
         }
 
         public string Name { get; set; }
+        
         public string Path { get; set; }
 
         public List<InstallerElement> Elements { get; set; }
-
-        /// <summary>
-        /// Call this method when all methods has been added
-        /// </summary>
-        public void FinishedAddingElements()
-        {
-            
-        }
+        
+        public string SourceFolder { get; set; }
+        public string PrimaryExecutablePath{ get; set; }
+        public string DestinationFolder { get; set; }
+        public string UniqueName { get; set; }
+        public string DisplayName { get; set; }
     }
 }

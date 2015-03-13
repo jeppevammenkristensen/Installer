@@ -102,9 +102,14 @@
     <Compile Include="Elements\Loaders\ConfigRTester.cs" />
     <Compile Include="Elements\Loaders\InstallationResolver.cs" />
     <Compile Include="Elements\RegistryInstallerElement.cs" />
+    <None Include="InstallationConfig.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utilities\InstallationBuilder.cs" />
     <Compile Include="Utilities\DirectoryHelper.cs" />
+    <Compile Include="Utilities\FolderElementExtensions.cs" />
+    <Compile Include="Utilities\RegistryElementExtensions.cs" />
     <Compile Include="Utilities\RegistryHelper.cs" />
+    <Compile Include="Utilities\ShortcutElementExtensions.cs" />
     <Compile Include="ViewModels\InstallationsViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

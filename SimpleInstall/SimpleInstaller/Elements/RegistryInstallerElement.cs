@@ -47,7 +47,7 @@ namespace SimpleInstaller.Elements
 
         public override string Name
         {
-            get;protected set; 
+            get; set; 
         }
 
         public override async Task InstallAsync()

@@ -21,7 +21,7 @@ namespace SimpleInstaller.Elements
         public string FileSearchPattern { get; set; }
 
 
-        public override string Name { get; protected set; }
+        public override string Name { get; set; }
 
         public override async Task InstallAsync()
         {

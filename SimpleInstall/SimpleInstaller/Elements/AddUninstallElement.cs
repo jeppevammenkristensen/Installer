@@ -21,7 +21,7 @@ namespace SimpleInstaller.Elements
         public override string Name
         {
             get { return "Add uninstall information"; }
-            protected set { throw new System.NotImplementedException(); }
+            set { }
         }
 
         public async override Task InstallAsync()

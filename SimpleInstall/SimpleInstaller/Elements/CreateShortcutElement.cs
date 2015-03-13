@@ -11,7 +11,7 @@ namespace SimpleInstaller.Elements
         public override string Name
         {
             get { return string.Format("Create shortcut for {0} in {1}", SourcePath, DestinationFolder); }
-            protected set { }
+            set { }
         }
 
 

@@ -11,7 +11,7 @@ namespace SimpleInstaller.Utilities
             logger = logger ?? delegate { };
 
             // Get the subdirectories for the specified directory.
-            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName == string.Empty ? Folder.CurrentExecutionFolder : sourceDirName);
             DirectoryInfo[] dirs = dir.GetDirectories();
 
             if (!dir.Exists)

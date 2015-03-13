@@ -5,7 +5,7 @@ namespace SimpleInstaller.Elements
 {
     public abstract class InstallerElement
     {
-        public abstract string Name { get; protected set; }
+        public virtual string Name { get; set; }
 
         public Action<string> Logger = delegate { };
 
