@@ -12,6 +12,7 @@ namespace SimpleInstaller
                 .WithCopyToProgramsFiles("SimpleInstaller")
                 .WithContextFolderMenuItem("customjvk", "Open installer here")
                 .WithShortcutElement(Folder.Desktop,"Jeppes custom link")
+                .WithShortcutElement(Folder.AllProgramsFolder.CombinePathWith("Simple Installer"),"Simple Installer")
             .Complete(true);
 
     }

@@ -1,11 +1,47 @@
 ﻿using System;
 using System.IO;
-using Common.Logging.Configuration;
+using System.Linq;
 
 namespace SimpleInstaller.Utilities
 {
     public class DirectoryHelper
     {
+        public static string EnsureDirectoryExists(string directory)
+        {
+            if (directory == "." || directory == string.Empty)
+                return directory;
+
+            string currentPath = null;
+            var paths = directory.Split(new []{Path.DirectorySeparatorChar}, StringSplitOptions.RemoveEmptyEntries);
+            
+            foreach (var path in paths)
+            {
+                if (currentPath == null)
+                {
+                    if (!Directory.Exists(path))
+                        throw new InvalidOperationException(string.Format("Could not resolve path {0}", path));
+                    
+                    currentPath =
+                        DriveInfo.GetDrives().Where(x => x.Name.StartsWith(path)).Select(x => x.Name).FirstOrDefault();
+                    
+                    // If we don't match a drive use the value instead
+                    if (currentPath == null)
+                        currentPath = path;
+                    if (directory.StartsWith("\\\\"))
+                        currentPath = "\\\\" + currentPath;
+                }
+                else
+                {
+                    currentPath = currentPath.CombinePathWith(path);
+
+                    if (!Directory.Exists(currentPath))
+                        Directory.CreateDirectory(currentPath);
+                }
+            }
+
+            return directory;
+        }
+
         public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, string searchPattern = null, Action<string> logger = null)
         {
             logger = logger ?? delegate { };

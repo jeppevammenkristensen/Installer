@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using SimpleInstaller.Elements;
 
@@ -7,6 +9,13 @@ namespace SimpleInstaller.Utilities
 {
     public static class Folder
     {
+        [DllImport("shell32.dll")]
+        static extern bool SHGetSpecialFolderPath(IntPtr hwndOwner,
+           [Out] StringBuilder lpszPath, int nFolder, bool fCreate);
+        const int CSIDL_COMMON_STARTMENU = 0x16;  // All Users\Start Menu
+
+
+
         public static string ProgramFilesFolder
         {
             get { return Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles); }
@@ -15,6 +24,11 @@ namespace SimpleInstaller.Utilities
         public static string Desktop
         {
             get { return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory); }
+        }
+
+        public static string AllProgramsFolder
+        {
+            get { return Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu); }
         }
 
         public static string CurrentExecutionFolder

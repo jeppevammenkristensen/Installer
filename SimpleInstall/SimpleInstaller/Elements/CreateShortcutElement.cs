@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using IWshRuntimeLibrary;
 using SimpleInstaller.Annotations;
+using SimpleInstaller.Utilities;
 
 namespace SimpleInstaller.Elements
 {
@@ -34,14 +35,18 @@ namespace SimpleInstaller.Elements
 
         public override async Task InstallAsync()
         {
-            string deskDir = DestinationFolder;
-            var shell = new WshShell();
-            var shortcutLinkFilePath = Path.Combine(deskDir, string.Format(@"{0}.lnk", LinkName));
-            var windowsApplicationShortcut = (IWshShortcut) shell.CreateShortcut(shortcutLinkFilePath);
-            windowsApplicationShortcut.Description = LinkName;
-            windowsApplicationShortcut.WorkingDirectory = new FileInfo(SourcePath).Directory.FullName;
-            windowsApplicationShortcut.TargetPath = SourcePath;
-            windowsApplicationShortcut.Save();
+            await Task.Run(() =>
+            {
+                string deskDir = DirectoryHelper.EnsureDirectoryExists(DestinationFolder);
+
+                var shell = new WshShell();
+                var shortcutLinkFilePath = Path.Combine(deskDir, string.Format(@"{0}.lnk", LinkName));
+                var windowsApplicationShortcut = (IWshShortcut) shell.CreateShortcut(shortcutLinkFilePath);
+                windowsApplicationShortcut.Description = LinkName;
+                windowsApplicationShortcut.WorkingDirectory = new FileInfo(SourcePath).Directory.FullName;
+                windowsApplicationShortcut.TargetPath = SourcePath;
+                windowsApplicationShortcut.Save();
+            });
         }
     }
 }
