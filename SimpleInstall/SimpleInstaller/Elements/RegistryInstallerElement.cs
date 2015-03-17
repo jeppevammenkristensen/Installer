@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using SimpleInstaller.Annotations;
@@ -29,25 +30,37 @@ namespace SimpleInstaller.Elements
 
     public class RegistryInstallerElement : InstallerElement
     {
+        private string _name;
         public RegistryRoot _root { get; set; }
         public string Path { get; set; }
         public RegistryValue[] Value { get; set; }
 
-        public RegistryInstallerElement([NotNull] string name, RegistryRoot root, [NotNull] string path,
+        public RegistryInstallerElement()
+        {
+            
+        }
+
+        public RegistryInstallerElement(RegistryRoot root, [NotNull] string path, string name,
             params RegistryValue[] value)
         {
-            if (name == null) throw new ArgumentNullException("name");
             if (path == null) throw new ArgumentNullException("path");
 
             _root = root;
             Path = path;
             Value = value;
-            Name = name;
+            _name = name;
         }
 
         public override string Name
         {
-            get; set; 
+            get
+            {
+                if (_name == null)
+                    _name = string.Format("{0} {1}", _root, Path);
+
+                return _name;
+            }
+            set { _name = value; }
         }
 
         public override async Task InstallAsync()
@@ -65,6 +78,14 @@ namespace SimpleInstaller.Elements
                     path.WriteRegistryValue(registryValue);
                 }
                 Logger("Ended registrycreation");
+            });
+        }
+
+        public async override Task UninstallAsync()
+        {
+            await Task.Run(() =>
+            {
+                RegistryHelper.DeleteRegistryPath(_root, Path);
             });
         }
     }

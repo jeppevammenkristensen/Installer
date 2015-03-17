@@ -30,9 +30,6 @@ namespace SimpleInstaller
 
             // the commented out below is to be used by a configr file
 
-            
-
-
             Scope = new InstallationViewModel();
             Scope.SetInstaller(installation);
             DataContext = Scope;
@@ -41,6 +38,11 @@ namespace SimpleInstaller
         private async void Install_Clicked(object sender, RoutedEventArgs e)
         {
             await Scope.Install();
+        }
+
+        private async void Uninstall_Clicked(object sender, RoutedEventArgs e)
+        {
+            await Scope.Uninstall();
         }
     }
 }

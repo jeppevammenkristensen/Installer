@@ -29,10 +29,23 @@ namespace SimpleInstaller.Elements
             await Task.Run(() =>
             {
                 RegistryHelper.WriteRegistryPath(RegistryRoot.HKEY_Local_Machine,
-                    "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\" + ApplicationUniqueName)
+                    GenerateRegistryPath())
                     .WriteRegistryValue(new RegistryValue("UninstallString", UninstallString))
                     .WriteRegistryValue(new RegistryValue("DisplayName", DisplayName));
             });
+        }
+
+        private string GenerateRegistryPath()
+        {
+            return "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\" + ApplicationUniqueName;
+        }
+
+        public async override Task UninstallAsync()
+        {
+            //await Task.Run(() =>
+            //{
+            //    RegistryHelper.DeleteRegistryPath(RegistryRoot.HKEY_Local_Machine, GenerateRegistryPath());
+            //});
         }
 
         public string Uninstaller { get; set; }

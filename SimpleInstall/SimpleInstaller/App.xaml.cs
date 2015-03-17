@@ -17,7 +17,6 @@ namespace SimpleInstaller
         private void Virk(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             MessageBox.Show(e.Exception.ToString(), "No soup for you");
-            
         }
     }
 }

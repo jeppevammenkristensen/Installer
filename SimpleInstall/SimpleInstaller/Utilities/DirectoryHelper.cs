@@ -83,5 +83,33 @@ namespace SimpleInstaller.Utilities
                 }
             }
         }
+
+        public static void Delete(string destinationFolder,bool recursive, string fileSearchPattern, Action<string> logger)
+        {
+            logger = logger ?? delegate { };
+
+            if (!Directory.Exists(destinationFolder))
+                return;
+
+            if (recursive && Directory.GetDirectories(destinationFolder).Any())
+            {
+                foreach (var directory in Directory.GetDirectories(destinationFolder))
+                {
+                    Delete(directory,true, fileSearchPattern, logger);
+                }
+            }
+
+            string[] filesToDelete = fileSearchPattern == null ? Directory.GetFiles(destinationFolder) : Directory.GetFiles(destinationFolder, fileSearchPattern);
+
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            if (!Directory.GetFiles(destinationFolder).Any())
+            {
+                Directory.Delete(destinationFolder);
+            }
+        }
     }
 }

@@ -34,6 +34,11 @@ namespace SimpleInstaller.Elements
             Logger("Created site");
         }
 
+        public async override Task UninstallAsync()
+        {
+           
+        }
+
         public int Port { get; set; }
 
         public string SitePath { get; set; }

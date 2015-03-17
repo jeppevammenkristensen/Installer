@@ -13,19 +13,19 @@ namespace SimpleInstaller.Utilities
 
 
             return installationBuilder
-                .WithRegistryElement(RegistryRoot.HKEY_Classes_Root, rootPath, new[]
+                .WithRegistryElement(RegistryRoot.HKEY_Classes_Root, rootPath, null, new[]
                 {
                     new RegistryValue("MUIVerb", contextMenuText)
                 })
-                .WithRegistryElement(RegistryRoot.HKEY_Classes_Root, commandPath, new[]
+                .WithRegistryElement(RegistryRoot.HKEY_Classes_Root, commandPath, null, new[]
                 {
                     new RegistryValue("", executionPath),
                 });
         }
 
-        public static InstallationBuilder WithRegistryElement(this InstallationBuilder installationBuilder, RegistryRoot root, string path, RegistryValue[] values)
+        public static InstallationBuilder WithRegistryElement(this InstallationBuilder installationBuilder, RegistryRoot root, string path, string name, RegistryValue[] values)
         {
-            return installationBuilder.WithElement(new RegistryInstallerElement("!!!TEST!!!", root, path, values));
+            return installationBuilder.WithElement(new RegistryInstallerElement(root, path,name,values));
         }
     }
 }

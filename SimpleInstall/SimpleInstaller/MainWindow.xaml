@@ -39,7 +39,16 @@
 
 		<ListBox Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding IsValid, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="5" Grid.RowSpan="2" ItemsSource="{Binding Elements}" ItemTemplate="{DynamicResource ProgressTemplate}" />
 
-		<Button Content="Install" Grid.Row="4" Click="Install_Clicked" />
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Margin="5,5,5,5" Content="Install" Grid.Column="0" Click="Install_Clicked" />
+            <Button Margin="5,5,5,5" Content="Uninstall" Grid.Column="1" Click="Uninstall_Clicked" />
+
+        </Grid>
+        
 		<GridSplitter HorizontalAlignment="Stretch" Margin="1" Grid.Row="2"/>
 		<ListBox Margin="5" Grid.Row="3" ItemTemplate="{DynamicResource StringTemplate}" ItemsSource="{Binding Logs}"/>
         

@@ -64,5 +64,11 @@ namespace SimpleInstaller.Utilities
                     throw new ArgumentOutOfRangeException("registryRoot");
             }
         }
+
+        public static void DeleteRegistryPath(RegistryRoot hkeyLocalMachine, string generateRegistryPath)
+        {
+            var root = GetRegistryRoot(hkeyLocalMachine);
+            root.DeleteSubKeyTree(generateRegistryPath, false);
+        }
     }
 }

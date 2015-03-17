@@ -10,5 +10,7 @@ namespace SimpleInstaller.Elements
         public Action<string> Logger = delegate { };
 
         public abstract Task InstallAsync();
+
+        public abstract Task UninstallAsync();
     }
 }

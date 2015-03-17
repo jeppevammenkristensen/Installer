@@ -93,6 +93,16 @@ namespace SimpleInstaller.ViewModels
             Completed = true;
             Progress = 1;
         }
+
+        public async Task Uninstall()
+        {
+            InProgress = true;
+            Progress = 0;
+            await _element.UninstallAsync();
+            InProgress = false;
+            Completed = true;
+            Progress = 1;
+        }
     }
 
     public class InstallationViewModel : INotifyPropertyChanged
@@ -150,6 +160,14 @@ namespace SimpleInstaller.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null){
             var handler = PropertyChanged;            
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public async Task Uninstall()
+        {
+            foreach (var installerElement in Elements)
+            {
+                await installerElement.Uninstall();
+            }
         }
     }
 }

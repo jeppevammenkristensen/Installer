@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using Microsoft.Web.Administration;
-using Roslyn.Compilers;
 
 namespace SimpleInstaller.Elements
 {
