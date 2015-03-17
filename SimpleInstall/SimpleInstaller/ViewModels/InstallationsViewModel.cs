@@ -97,11 +97,11 @@ namespace SimpleInstaller.ViewModels
         public async Task Uninstall()
         {
             InProgress = true;
-            Progress = 0;
+            Progress = 1;
             await _element.UninstallAsync();
             InProgress = false;
-            Completed = true;
-            Progress = 1;
+            Completed = false;
+            Progress = 0;
         }
     }
 

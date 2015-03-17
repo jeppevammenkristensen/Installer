@@ -26,9 +26,16 @@ namespace SimpleInstaller.Elements.Loaders
 
         public override Installation GetValue()
         {
-            Config.Global.LoadScriptFile(FullPath, typeof (ConfigRTester).Assembly);
-            if (Config.Global.ContainsKey("installation"))
-                return Config.Global.Get<Installation>("installation");
+            try
+            {
+                Config.Global.LoadScriptFile(FullPath, typeof (ConfigRTester).Assembly);
+                if (Config.Global.ContainsKey("installation"))
+                    return Config.Global.Get<Installation>("installation");
+            }
+            catch (Exception e)
+            {
+                throw new InvalidOperationException(string.Format("An exception occurred when trying to load from {0}", FullPath),e);
+            }
             
             throw new InvalidOperationException(
                     "Was able to load configuration, but expected element with key \"installation\" was not found");

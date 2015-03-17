@@ -1,5 +1,4 @@
-﻿using SimpleInstaller.Elements;
-using SimpleInstaller.Utilities;
+﻿using SimpleInstaller.Utilities;
 
 
 namespace SimpleInstaller
